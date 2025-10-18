@@ -2,9 +2,10 @@ const {SlashCommandBuilder}=require('discord.js');
 const jsHandler=require('../../jsonData/jsonHandler.js')
 const sequencesMapping=JSON.parse('{"sun":0,"earth":1,"fire":2,"moon":3,"air":4,"water":5}')
 const sequencesDays=[25,93,93,25,93,93]
+const db=require("../../database/dbManager.js");
 
 module.exports={
-    data:new SlashCommandBuilder().setName('cmoveday').setDescription('Work in progress')
+    data:new SlashCommandBuilder().setName('cmoveday').setDescription('Move of the specified amount of days')
     .addNumberOption((option)=>option.setName("days").setDescription("Number of days to move, either positive or negative").setRequired(true))
     .addBooleanOption((option)=>option.setName("secret").setDescription("Set to true if you want to see the deepest lore")),
     async execute(interaction){
