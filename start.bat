@@ -13,7 +13,16 @@ if %errorlevel% neq 0 (
     exit /b
 )
 
+if not exist "config.json" (
+    echo [ERROR] config.json not found in the current directory!
+    echo Please create a config.json according to the README.
+    pause
+    exit /b
+)
+
 :: Run npm start (your package.json handles install + launch)
+echo First install...
+npm install
 echo Running bot...
 npm start
 
