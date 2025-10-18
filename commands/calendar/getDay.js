@@ -23,13 +23,21 @@ module.exports={
         const row=db.getDay(day,cycle,sequence);
         let ret;
         if (!row || row==undefined){
-            ret="No day found";
+            if(sec && jsHandler.isIn(interaction.user.id)){
+                ret=`Day: ${data.day}\nSequence: ${data.sequence}\nCycle: ${data.cycle}\nEvents:\n-\nHidden Events:\n-\n**True Cycle:**\n${data.trueCycle}`;  
+            }else{
+                ret=`Day: ${data.day}\nSequence: ${data.sequence}\nCycle: ${data.cycle}\nEvents:\n-\n`;
+            }
         }else{
-            ret=`Day: ${row.day}\nSequence: ${row.sequence}\nCycle: ${row.year}\nEvents:\n-${row.events.replace(",","\n-")}`;
+            if(sec && jsHandler.isIn(interaction.user.id)){
+                ret=`Day: ${row.day}\nSequence: ${row.sequence}\nCycle: ${row.year}\nEvents:\n-${row.events.replace(",","\n-")}\nHidden Events:\n-${row.notes.replace(",","\n-")}\n**True Cycle:**\n${data.trueCycle}`;  
+            }else{
+                ret=`Day: ${row.day}\nSequence: ${row.sequence}\nCycle: ${row.year}\nEvents:\n-${row.events.replace(",","\n-")}`;
+            }
         }
 
         if(sec && jsHandler.isIn(interaction.user.id)){
-            await interaction.reply({ content: `**Result:** \n${ret+`\nHidden Events:\n-${row.notes.replace(",","\n-")}`}`, ephemeral: true }); 
+            await interaction.reply({ content: `**Result:** \n${ret}`, ephemeral: true }); 
         }else{
             await interaction.reply(`**Result:** \n${ret}`);
         }

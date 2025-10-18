@@ -11,7 +11,7 @@ module.exports={
     async execute(interaction){
         let data=jsHandler.getData()
         let currentDay=data.day;
-        const incrementDay=interaction.options.getNumber("day");
+        const incrementDay=interaction.options.getNumber("days");
         let currentSeq=sequencesMapping[data.sequence]
         let sequenceDays=sequencesDays[currentSeq]
         let currentCycle=data.cycle;
@@ -50,16 +50,25 @@ module.exports={
         data.trueCycle=trueCyc;
 
         jsHandler.updateData(data);
-        
+
         const row=db.getDay(data.day,data.cycle,data.sequence);
         let ret;
         if (!row || row==undefined){
-            ret="No day found";
+            if(sec && jsHandler.isIn(interaction.user.id)){
+                ret=`Day: ${data.day}\nSequence: ${data.sequence}\nCycle: ${data.cycle}\nEvents:\n-\nHidden Events:\n-\n**True Cycle:**\n${data.trueCycle}`;  
+            }else{
+                ret=`Day: ${data.day}\nSequence: ${data.sequence}\nCycle: ${data.cycle}\nEvents:\n-\n`;
+            }
         }else{
-            ret=`Day: ${row.day}\nSequence: ${row.sequence}\nCycle: ${row.year}\nEvents:\n-${row.events.replace(",","\n-")}`;
+            if(sec && jsHandler.isIn(interaction.user.id)){
+                ret=`Day: ${row.day}\nSequence: ${row.sequence}\nCycle: ${row.year}\nEvents:\n-${row.events.replace(",","\n-")}\nHidden Events:\n-${row.notes.replace(",","\n-")}\n**True Cycle:**\n${data.trueCycle}`;  
+            }else{
+                ret=`Day: ${row.day}\nSequence: ${row.sequence}\nCycle: ${row.year}\nEvents:\n-${row.events.replace(",","\n-")}`;
+            }
         }
+
         if(sec && jsHandler.isIn(interaction.user.id)){
-            await interaction.reply({ content: `**Result:** \n${ret+`\nHidden Events-${row.notes.replace(",","\n-")}\n**True Cycle:**\n${data.trueCycle}`}`, ephemeral: true }); 
+            await interaction.reply({ content: `**Result:** \n${ret}`, ephemeral: true }); 
         }else{
             await interaction.reply(`**Result:** \n${ret}`);
         }
