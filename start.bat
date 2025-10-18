@@ -21,8 +21,6 @@ if not exist "config.json" (
 )
 
 :: Run npm start (your package.json handles install + launch)
-echo First install...
-npm install
 echo Running bot...
 npm start
 
