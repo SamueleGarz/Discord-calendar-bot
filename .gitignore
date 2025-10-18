@@ -1,0 +1,3 @@
+#Ignore this file so to avoid issues with token leakage
+config.json
+node_modules
