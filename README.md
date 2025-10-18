@@ -12,7 +12,7 @@ To add another user to the list of users that can receive ephimeral messages to 
 
 ## Setup
 You need to add the bot to your application if you want to run it yourself.
-To do that, follow the steps under **[Setup Guide]((https://www.discordjs.guide/legacy/preparations/app-setup))**
+To do that, follow the steps under **[Setup Guide](https://www.discordjs.guide/legacy/preparations/app-setup)**
 
 ## First exeution
 Regardless of platform, for this bot to function you should:
