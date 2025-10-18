@@ -21,6 +21,7 @@ module.exports={
         const sequence=interaction.options.getString("sequence");
         const sec=interaction.options.getBoolean("secret") ?? false;
         const row=db.getDay(day,cycle,sequence);
+        let data=jsHandler.getData();
         let ret;
         if (!row || row==undefined){
             if(sec && jsHandler.isIn(interaction.user.id)){
