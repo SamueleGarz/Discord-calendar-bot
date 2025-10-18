@@ -10,6 +10,10 @@ To add another user to the list of users that can receive ephimeral messages to 
 - Copy the user id of the one / ones you want to add
 - Add the user ids to "allowed users" in jsonData/data.json as strings (same as the already present ones)
 
+## Setup
+You need to add the bot to your application if you want to run it yourself.
+To do that, follow the steps under **[Setup Guide]((https://www.discordjs.guide/legacy/preparations/app-setup))**
+
 ## First exeution
 Regardless of platform, for this bot to function you should:
 - Rename SAMPLE_config.json to config.json
