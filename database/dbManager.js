@@ -37,12 +37,12 @@ function getSequence(sequence,year){
 }
 
 function removeDay(day, year, sequence){
-    return db.prepare('DELETE FROM sequences WHERE day=?, year=?, sequence=?')
+    return db.prepare('DELETE FROM sequences WHERE day=? AND year=? AND sequence=?')
     .run(day,year,sequence)
 }
 
 function clearSequence(year,sequence){
-    return db.prepare('DELETE FROM sequences WHERE year=?, sequence=?')
+    return db.prepare('DELETE FROM sequences WHERE year=? AND sequence=?')
     .run(year,sequence)
 }
 
