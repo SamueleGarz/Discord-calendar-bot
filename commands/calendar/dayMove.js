@@ -18,31 +18,37 @@ module.exports={
         const sec=interaction.options.getBoolean("secret") ?? false;
         let trueCyc=data.trueCycle
 
-        if(incrementDay>=0){
-            currentDay+=incrementDay;
-        }else{
-            currentDay-=incrementDay;
+        currentDay+=incrementDay;
+
+        //negative value, given a negative day it will go back in time until the value is positive.
+        while(currentDay<0){
+            currentSeq=currentSeq--;
+            if(currentSeq>6){currentCycle++;trueCyc++;currentSeq=0;
+            }
+            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=6;
+            }
+            currentDay+=sequenceDays[currentSeq];
         }
 
-        while(Math.abs(currentDay)-sequenceDays>0){
-            if(currentDay>0){
-                currentDay-=sequenceDays;
-                currentSeq=currentSeq+1;
-            }else{
-                currentDay+=sequenceDays;
-                currentSeq=currentSeq-1;
+        //positive value, given a positive day subtract from it untill it fits in a sequence
+        while(currentDay-sequenceDays>0){
+            currentDay-=sequenceDays;
+            currentSeq=currentSeq+1;
+            if(currentSeq>6){currentCycle++;trueCyc++;currentSeq=0;
             }
-            if(currentSeq>6){
-                currentCycle++;
-                trueCyc++;
-                currentSeq=0;
-            }
-            if(currentSeq<0){
-                currentCycle--;
-                trueCyc--;
-                currentSeq=6;
+            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=6;
             }
             sequenceDays=sequenceDays[currentSeq];
+        }
+
+        //If it's zero it means it has to go back one day
+        if(currentDay==0){
+            currentSeq=currentSeq--;
+            if(currentSeq>6){currentCycle++;trueCyc++;currentSeq=0;
+            }
+            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=6;
+            }
+            currentDay+=sequenceDays[currentSeq];
         }
         data.day=currentDay;
         data.sequence=Object.keys(sequencesMapping).find(k => sequencesMapping[k] === currentSeq);
