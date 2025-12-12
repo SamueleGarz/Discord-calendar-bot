@@ -22,33 +22,34 @@ module.exports={
 
         //negative value, given a negative day it will go back in time until the value is positive.
         while(currentDay<0){
-            currentSeq=currentSeq--;
-            if(currentSeq>6){currentCycle++;trueCyc++;currentSeq=0;
+            currentSeq=currentSeq-1;
+            if(currentSeq>5){currentCycle++;trueCyc++;currentSeq=0;
             }
-            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=6;
+            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=5;
             }
-            currentDay+=sequenceDays[currentSeq];
+            sequenceDays=sequencesDays[currentSeq];
+            currentDay+=sequenceDays;
         }
 
         //positive value, given a positive day subtract from it untill it fits in a sequence
         while(currentDay-sequenceDays>0){
             currentDay-=sequenceDays;
             currentSeq=currentSeq+1;
-            if(currentSeq>6){currentCycle++;trueCyc++;currentSeq=0;
+            if(currentSeq>5){currentCycle++;trueCyc++;currentSeq=0;
             }
-            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=6;
+            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=5;
             }
-            sequenceDays=sequenceDays[currentSeq];
+            sequenceDays=sequencesDays[currentSeq];
         }
 
         //If it's zero it means it has to go back one day
         if(currentDay==0){
-            currentSeq=currentSeq--;
+            currentSeq=currentSeq-1;
             if(currentSeq>6){currentCycle++;trueCyc++;currentSeq=0;
             }
-            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=6;
+            if(currentSeq<0){currentCycle--;trueCyc--;currentSeq=5;
             }
-            currentDay+=sequenceDays[currentSeq];
+            currentDay=sequencesDays[currentSeq];
         }
         data.day=currentDay;
         data.sequence=Object.keys(sequencesMapping).find(k => sequencesMapping[k] === currentSeq);
