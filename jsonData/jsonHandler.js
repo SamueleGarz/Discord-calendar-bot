@@ -14,7 +14,7 @@ function load(){
 function store(){
     if (saveFlag){
         try{
-            fs.writeFileSync(dataFile,JSON.stringify(data,null,2));
+            fs.writeFileSync(pathJs,JSON.stringify(stored,null,2));
             saveFlag=false;
         }catch(err){
             console.log("Error on saving data: "+err);

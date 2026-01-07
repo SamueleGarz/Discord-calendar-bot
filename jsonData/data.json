@@ -1,7 +1,10 @@
 {
-    "day":1,
-    "cycle":258,
-    "sequence":"sun",
-    "trueCycle": 22.617,
-    "allowed_users":["622497460241039381","345109887845400576"]
+  "day": 11,
+  "cycle": 258,
+  "sequence": "sun",
+  "trueCycle": 22.617,
+  "allowed_users": [
+    "622497460241039381",
+    "345109887845400576"
+  ]
 }
